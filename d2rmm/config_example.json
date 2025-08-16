@@ -1,0 +1,56 @@
+{
+  "name": "Config Types Showcase",
+  "description": "Example mod.json showing all D2RMM config types",
+  "author": "Demo",
+  "version": "1.0",
+
+  "config": [
+    {
+      "name": "enableFeature",
+      "type": "checkbox",
+      "description": "Enable the experimental feature?",
+      "default": true
+    },
+    {
+      "name": "bonusDamage",
+      "type": "number",
+      "description": "Flat bonus damage",
+      "default": 10,
+      "min": 0,
+      "max": 200,
+      "step": 5
+    },
+    {
+      "name": "sliderValue",
+      "type": "slider",
+      "description": "Adjust skeleton count multiplier",
+      "default": 1,
+      "min": 1,
+      "max": 5,
+      "step": 1
+    },
+    {
+      "name": "favoriteSkill",
+      "type": "select",
+      "description": "Which bonus skill should be applied?",
+      "options": [
+        { "label": "Corpse Explosion", "value": "CorpseExplosion" },
+        { "label": "Poison Nova", "value": "PoisonNova" },
+        { "label": "Bone Spirit", "value": "BoneSpirit" }
+      ],
+      "default": "PoisonNova"
+    },
+    {
+      "name": "customLabel",
+      "type": "text",
+      "description": "Custom label text",
+      "default": "My Mod Rocks!"
+    },
+    {
+      "name": "highlightColor",
+      "type": "color",
+      "description": "Highlight color for special effects",
+      "default": "#00FF00"
+    }
+  ]
+}
