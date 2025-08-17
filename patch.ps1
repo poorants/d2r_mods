@@ -1,4 +1,6 @@
-$source = "mods\MegaShift for D2RMM"
+$source = "mods"
 $destination = "C:\Users\donghun.kim\Desktop\D2RMM 1.7.3\mods"
 
-Copy-Item $source $destination -Recurse -Force
+Get-ChildItem $source -Directory | ForEach-Object {
+    Copy-Item $_.FullName $destination -Recurse -Force
+}

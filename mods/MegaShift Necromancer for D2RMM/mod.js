@@ -13,9 +13,10 @@ const monstats = D2RMM.readTsv(monstatsPath);
 const skilldescPath = "global\\excel\\skilldesc.txt";
 const skilldesc = D2RMM.readTsv(skilldescPath);
 
-targets = ["Raise Skeleton", "Raise Skeletal Mage"];
+// Modify raise skeleton family to summon without a corpse
+targets = ["Raise Skeleton"];
 skills.rows.forEach((row) => {
-  if (targets.includes(row['skill'])) {
+  if (targets.includes(row["skill"])) {
     row.srvstfunc = "";
     row.srvdofunc = 56;
     row.stsuccessonly = "";
@@ -28,6 +29,44 @@ skills.rows.forEach((row) => {
   }
 });
 
+// Modify raise skeleton mage
+
+skills.rows.forEach((row) => {
+  if (row.skill === "Raise Skeletal Mage") {
+    row.sumskill1 = "Chain Lightning";
+  }
+});
+monstats.rows.forEach((row) => {
+  if (row["Id"] === "necromage") {
+    row.Skill1 = "Chain Lightning";
+    row.Sk1mode = "A1";
+    row.Sk1lvl = 1;
+  }
+});
+
+// const skill_bonespear = skills.rows.find((row) => row.skill === "Bone Spear");
+
+// skills.rows.push({
+//   ...skill_bonespear,
+//   skill: "NecroMageBoneSpear",
+//   ["*Id"]: 400,
+//   charclass: "",
+// });
+
+// skills.rows.forEach((row) => {
+//   if (row.skill === "Raise Skeletal Mage") {
+//     row.sumskill1 = "NecroMageBoneSpear";
+//   }
+// });
+// monstats.rows.forEach((row) => {
+//   if (row["Id"] === "necromage") {
+//     row.Skill1 = "NecroMageBoneSpear";
+//     row.Sk1mode = "A1";
+//     row.Sk1lvl = 1;
+//   }
+// });
+
+// Modify golem family to summon without a corpse
 skills.rows.forEach((row) => {
   if (row.skill === "BloodGolem") {
     row.pettype = "bloodgolem";
@@ -39,8 +78,6 @@ skills.rows.forEach((row) => {
     row.pettype = "firegolem";
   }
 });
-
-
 
 pettype.rows.forEach((row) => {
   if (row["pet type"] === "golem") {
@@ -54,17 +91,34 @@ pettype.rows.forEach((row) => {
   }
 });
 
-const pettypeGolem = pettype.rows.find((row) => row['pet type'] === "golem");
+const pettypeGolem = pettype.rows.find((row) => row["pet type"] === "golem");
 
-const pettypeBloodgolem = { ...pettypeGolem,  ["pet type"]: "bloodgolem", baseicon: "bloodgolumicon", mclass1: 290, micon1: "bloodgolumicon" };
+const pettypeBloodgolem = {
+  ...pettypeGolem,
+  ["pet type"]: "bloodgolem",
+  baseicon: "bloodgolumicon",
+  mclass1: 290,
+  micon1: "bloodgolumicon",
+};
 pettype.rows.push(pettypeBloodgolem);
 
-const pettypeIronGolem = { ...pettypeGolem, ["pet type"]: "irongolem", baseicon: "irongolumicon", mclass1: 291, micon1: "irongolumicon" };
+const pettypeIronGolem = {
+  ...pettypeGolem,
+  ["pet type"]: "irongolem",
+  baseicon: "irongolumicon",
+  mclass1: 291,
+  micon1: "irongolumicon",
+};
 pettype.rows.push(pettypeIronGolem);
 
-const pettypeFireGolem = { ...pettypeGolem,  ["pet type"]: "firegolem", baseicon: "firegolumicon", mclass1: 292, micon1: "firegolumicon" };
+const pettypeFireGolem = {
+  ...pettypeGolem,
+  ["pet type"]: "firegolem",
+  baseicon: "firegolumicon",
+  mclass1: 292,
+  micon1: "firegolumicon",
+};
 pettype.rows.push(pettypeFireGolem);
-
 
 // write
 D2RMM.writeTsv(pettypePath, pettype);

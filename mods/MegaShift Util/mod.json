@@ -1,0 +1,78 @@
+{
+  "name": "MegaShift Util",
+  "description": "Util for MegaShift",
+  "author": "poorants",
+  "website": "",
+  "version": "0.1",
+  "config": [
+    {
+      "id": "townCast",
+      "type": "checkbox",
+      "name": "Town cast",
+      "description": "Town cast",
+      "defaultValue": true
+    },
+    {
+      "id": "noDrainStamina",
+      "type": "checkbox",
+      "name": "No drain stamina",
+      "description": "No drain stamina",
+      "defaultValue": true
+    },
+    {
+      "id": "freeSkillMana",
+      "type": "checkbox",
+      "name": "Free skill mana",
+      "description": "Free skill mana cost",
+      "defaultValue": true
+    },
+    {
+      "id": "unlockAllSkill",
+      "type": "checkbox",
+      "name": "Unlock all skill",
+      "description": "Unlock all skill",
+      "defaultValue": true
+    },
+    {
+      "id": "statPoints",
+      "type": "number",
+      "name": "Stat Points Per Level",
+      "description": "Vanilla: 5. (Min: 5)",
+      "defaultValue": 10,
+      "minValue": 5
+    },
+    {
+      "id": "skillPoints",
+      "type": "number",
+      "name": "Skill Points Per Level",
+      "description": "Vanilla: 1. (Min: 1)",
+      "defaultValue": 2,
+      "minValue": 1
+    },
+    {
+      "id": "increasePackSize",
+      "type": "number",
+      "name": "Monster pack size multiplier",
+      "minValue": 1,
+      "maxValue": 5,
+      "defaultValue": 1,
+      "description": "Monster pack size multiplier (1–5)"
+    },
+    {
+      "id": "increaseDensity",
+      "type": "number",
+      "name": "Monster density multiplier",
+      "minValue": 1,
+      "maxValue": 5,
+      "defaultValue": 1,
+      "description": "Monster density multiplier (1–5)"
+    },
+    {
+      "id": "monExpMultiplier",
+      "type": "text",
+      "name": "Monster experience multiplier",
+      "defaultValue": "1.0",
+      "description": "Experience multiplier (e.g., 0.5 = half, 2.0 = double)"
+    }
+  ]
+}
