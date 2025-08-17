@@ -3,5 +3,14 @@
   "description": "update class skill",
   "author": "poorants",
   "website": "",
-  "version": "0.1"
+  "version": "0.1",
+  "config": [
+    {
+      "id": "enhancedLich",
+      "type": "checkbox",
+      "name": "Enhanced Lich (OblivionKnight AI)",
+      "description": "Upgrades Skeletal Mages into powerful Liches that cast Bone Spear, Bone Spirit, and Amplify Damage. Warning: they will no longer follow the player. Recommended only if you have access to Teleport.",
+      "defaultValue": true
+    }
+  ]
 }
