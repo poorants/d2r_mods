@@ -20,26 +20,88 @@ const monaiPath = "global\\excel\\monai.txt";
 const monai = D2RMM.readTsv(monaiPath);
 
 // Modify raise skeleton family to summon without a corpse
-targets = ["Raise Skeleton"];
-skills.rows.forEach((row) => {
-  if (targets.includes(row["skill"])) {
-    row.srvstfunc = "";
-    row.srvdofunc = 56;
-    row.stsuccessonly = "";
-    row.cltmissilea = "";
-    row.cltstfunc = "";
-    row.cltdofunc = "";
-    row.SelectProc = "";
-    row.TargetCorpse = "";
-    row.InTown = 1;
-  }
-});
+if (config.deathKnight) {
+  skills.rows.forEach((row) => {
+    if (row.skill === "Raise Skeleton") {
+      row.srvstfunc = "";
+      row.srvdofunc = 56;
+      row.stsuccessonly = "";
+      row.cltmissilea = "";
+      row.cltstfunc = "";
+      row.cltdofunc = "";
+      row.SelectProc = "";
+      row.TargetCorpse = "";
+      row.InTown = 1;
+    }
+  });
+
+  monstats.rows.forEach((row) => {
+    if (row["Id"] === "necroskeleton") {
+      row["AI"] = "Duriel";
+      row["Skill1"] = "Charge";
+      row["Sk1mode"] = "A1";
+      row["Sk1lvl"] = "1";
+      row["Skill2"] = "Jab";
+      row["Sk2mode"] = "A1";
+      row["Sk2lvl"] = "1";
+      row["Skill3"] = "Smite";
+      row["Sk3mode"] = "A1";
+      row["Sk3lvl"] = "1";
+      row["Skill4"] = "";
+      row["Sk4mode"] = "";
+      row["Sk4lvl"] = "";
+      row["Skill5"] = "";
+      row["Sk5mode"] = "";
+      row["Sk5lvl"] = "";
+      row["aip1"] = "5"; //
+      row["aip1(N)"] = "5";
+      row["aip1(H)"] = "6";
+      row["aip2"] = "33"; //
+      row["aip2(N)"] = "33";
+      row["aip2(H)"] = "33";
+      row["aip3"] = "50";
+      row["aip3(N)"] = "50";
+      row["aip3(H)"] = "50";
+      row["aip4"] = "";
+      row["aip4(N)"] = "";
+      row["aip4(H)"] = "";
+      row["aip5"] = ""; //
+      row["aip5(N)"] = "";
+      row["aip5(H)"] = "";
+      row["aip6"] = ""; //
+      row["aip6(N)"] = "";
+      row["aip6(H)"] = "";
+      row["aip7"] = ""; //
+      row["aip7(N)"] = "";
+      row["aip7(H)"] = "";
+      row["aip8"] = ""; //
+      row["aip8(N)"] = "";
+      row["aip8(H)"] = "";
+    }
+  });
+
+  const skeletonSkillAuraCalc =
+    "skill('Skeleton Mastery'.lvl) + ((lvl <= 10) ? lvl : (10 + ((lvl - 10) / 2)))";
+  skills.rows.forEach((row) => {
+    if (row.skill === "Raise Skeleton") {
+      row.sumskill1 = "Charge";
+      row.sumskill1calc = skeletonSkillAuraCalc;
+      row.sumskill2 = "Jab";
+      row.sumsk2calc = skeletonSkillAuraCalc;
+      row.sumskill3 = "Smite";
+      row.sumsk3calc = skeletonSkillAuraCalc;
+      row.sumskill4 = "";
+      row.sumsk4calc = "";
+      row.sumskill5 = "";
+      row.sumsk5calc = "";
+    }
+  });
+}
 
 // Modify raise skeleton mage
-if (config.enhancedLich) {
-  targets = ["Raise Skeletal Mage"];
+if (config.lich) {
   skills.rows.forEach((row) => {
-    if (targets.includes(row["skill"])) {
+    if (row.skill === "Raise Skeletal Mage") {
       row.srvstfunc = "";
       row.srvdofunc = 56;
       row.stsuccessonly = "";
@@ -97,17 +159,18 @@ if (config.enhancedLich) {
     }
   });
 
+  const skeletalMageSkillAuraCalc =
+    "skill('Skeleton Mastery'.lvl) + ((lvl <= 10) ? lvl : (10 + ((lvl - 10) / 2)))";
   skills.rows.forEach((row) => {
     if (row.skill === "Raise Skeletal Mage") {
       row.sumskill1 = "Bone Spear";
-      row.sumskill1calc =
-        "skill('Skeleton Mastery'.lvl) + ((lvl <= 10) ? lvl : (10 + ((lvl - 10) / 2)))";
+      row.sumskill1calc = skeletalMageSkillAuraCalc;
       row.sumskill2 = "";
       row.sumsk2calc = "";
       row.sumskill3 = "Bone Spirit";
-      row.sumsk3calc = row.sumskill1calc;
+      row.sumsk3calc = skeletalMageSkillAuraCalc;
       row.sumskill4 = "Amplify Damage";
-      row.sumsk4calc = row.sumskill1calc;
+      row.sumsk4calc = skeletalMageSkillAuraCalc;
       row.sumskill5 = "";
       row.sumsk5calc = "";
     }
@@ -116,28 +179,14 @@ if (config.enhancedLich) {
 
 // Modify golem family to summon without a corpse
 skills.rows.forEach((row) => {
-  if (row.skill === "Clay Golem") {
-    row.sumskill5 = "Might";
-    row.sumsk5calc =
-      "skill('Golem Mastery'.lvl) + ((lvl <= 10) ? lvl : (10 + ((lvl - 10) / 2)))";
-  }
   if (row.skill === "BloodGolem") {
     row.pettype = "bloodgolem";
-    row.sumskill5 = "Fanaticism";
-    row.sumsk5calc =
-      "skill('Golem Mastery'.lvl) + ((lvl <= 10) ? lvl : (10 + ((lvl - 10) / 2)))";
   }
   if (row.skill === "IronGolem") {
     row.pettype = "irongolem";
-    row.sumskill5 = "Concentration";
-    row.sumsk5calc =
-      "skill('Golem Mastery'.lvl) + ((lvl <= 10) ? lvl : (10 + ((lvl - 10) / 2)))";
   }
   if (row.skill === "FireGolem") {
     row.pettype = "firegolem";
-    row.sumskill5 = "Conviction";
-    row.sumsk5calc =
-      "skill('Golem Mastery'.lvl) + ((lvl <= 10) ? lvl : (10 + ((lvl - 10) / 2)))";
   }
 });
 
@@ -181,6 +230,61 @@ const pettypeFireGolem = {
   micon1: "firegolumicon",
 };
 pettype.rows.push(pettypeFireGolem);
+
+// Golem Ascendant
+if (config.ancientGolem) {
+  const golemAuraCalc =
+    "skill('Golem Mastery'.lvl) + ((lvl <= 10) ? lvl : (10 + ((lvl - 10) / 2)))";
+
+  skills.rows.forEach((row) => {
+    if (row.skill === "Clay Golem") {
+      row.sumskill1 = "Smite";
+      row.sumsk1calc = golemAuraCalc;
+      row.sumskill2 = "Prayer";
+      row.sumsk2calc = golemAuraCalc;
+      row.sumskill3 = "Defiance";
+      row.sumsk3calc = golemAuraCalc;
+      row.sumskill4 = "Vigor";
+      row.sumsk4calc = golemAuraCalc;
+      row.sumskill5 = "Meditation";
+      row.sumsk5calc = golemAuraCalc;
+    }
+    if (row.skill === "BloodGolem") {
+      row.sumskill1 = "Might";
+      row.sumsk1calc = golemAuraCalc;
+      row.sumskill2 = "Blessed Aim";
+      row.sumsk2calc = golemAuraCalc;
+      row.sumskill3 = "Concentration";
+      row.sumsk3calc = golemAuraCalc;
+      row.sumskill4 = "Fanaticism";
+      row.sumsk4calc = golemAuraCalc;
+      row.sumskill5 = "Conviction";
+      row.sumsk5calc = golemAuraCalc;
+    }
+    if (row.skill === "IronGolem") {
+      row.sumskill1 = "Holy Freeze";
+      row.sumsk1calc = golemAuraCalc;
+      row.sumskill2 = "Thorns";
+      row.sumsk2calc = golemAuraCalc;
+      row.sumskill3 = "Sanctuary";
+      row.sumsk3calc = golemAuraCalc;
+      row.sumskill4 = "Holy Shock";
+      row.sumsk4calc = golemAuraCalc;
+    }
+    if (row.skill === "FireGolem") {
+      row.sumskill1 = "Cleansing";
+      row.sumsk1calc = golemAuraCalc;
+      row.sumskill2 = "Resist Lightning";
+      row.sumsk2calc = golemAuraCalc;
+      row.sumskill3 = "Resist Cold";
+      row.sumsk3calc = golemAuraCalc;
+      row.sumskill4 = "Resist Fire";
+      row.sumsk4calc = golemAuraCalc;
+      row.sumskill5 = "Salvation";
+      row.sumsk5calc = golemAuraCalc;
+    }
+  });
+}
 
 // write
 D2RMM.writeTsv(pettypePath, pettype);

@@ -6,10 +6,24 @@
   "version": "0.1",
   "config": [
     {
-      "id": "enhancedLich",
+      "id": "deathKnight",
       "type": "checkbox",
-      "name": "Enhanced Lich (OblivionKnight AI)",
-      "description": "Upgrades Skeletal Mages into powerful Liches that cast Bone Spear, Bone Spirit, and Amplify Damage. Warning: they will no longer follow the player. Recommended only if you have access to Teleport.",
+      "name": "Death Knight",
+      "description": "Skeleton Warriors ascend into Death Knights, clad in dark power and armed with devastating combat skills. Beware: they have grown too powerful to follow their master.",
+      "defaultValue": true
+    },
+    {
+      "id": "lich",
+      "type": "checkbox",
+      "name": "Lich",
+      "description": "Skeletal Mages transform into Liches, ancient sorcerers wielding destructive bone magic and curses. Beware: they have grown too powerful to follow their master.",
+      "defaultValue": true
+    },
+    {
+      "id": "ancientGolem",
+      "type": "checkbox",
+      "name": "Ancient Golem",
+      "description": "Summoned Golems awaken as Ancient Golems, eternal constructs infused with divine and elemental auras.",
       "defaultValue": true
     }
   ]
