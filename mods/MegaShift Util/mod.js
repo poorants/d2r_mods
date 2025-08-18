@@ -91,28 +91,71 @@ if (config.skillPoints) {
 // Increase pack size
 if (config.increasePackSize > 1) {
   monstats.rows.forEach((row) => {
-    if (row.partymin && row.partymax) {
-      row.partymin = Math.max(
+    if (row["PartyMin"]) {
+      row["PartyMin"] = Math.max(
         1,
-        Math.floor(row.partymin * config.increasePackSize)
+        Math.floor(row["PartyMin"] * config.increasePackSize)
       );
-      row.partymax = Math.max(
-        row.partymin,
-        Math.floor(row.partymax * config.increasePackSize)
+    }
+    if (row["PartyMax"]) {
+      row["PartyMax"] = Math.max(
+        row["PartyMin"],
+        Math.floor(row["PartyMax"] * config.increasePackSize)
+      );
+    }
+    if (row["MinGrp"]) {
+      row["MinGrp"] = Math.max(
+        1,
+        Math.floor(row["MinGrp"] * config.increasePackSize)
+      );
+    }
+    if (row["MaxGrp"]) {
+      row["MaxGrp"] = Math.max(
+        row["MinGrp"],
+        Math.floor(row["MaxGrp"] * config.increasePackSize)
       );
     }
   });
 }
 
-// Increase density
-if (config.increaseDensity > 1) {
-  monstats.rows.forEach((row) => {
-    if (row.MonDen)
-      row.MonDen = Math.floor(row.MonDen * config.increaseDensity);
-    if (row["MonDen(N)"])
-      row["MonDen(N)"] = Math.floor(row["MonDen(N)"] * config.increaseDensity);
-    if (row["MonDen(H)"])
-      row["MonDen(H)"] = Math.floor(row["MonDen(H)"] * config.increaseDensity);
+if (config.uniquePackMultiplier) {
+  levels.rows.forEach((row) => {
+    if (row["MonUMin"]) {
+      row["MonUMin"] = Math.max(
+        1,
+        Math.floor(row["MonUMin"] * config.uniquePackMultiplier)
+      );
+    }
+    if (row["MonUMax"]) {
+      row["MonUMax"] = Math.max(
+        row["MonUMin"],
+        Math.floor(row["MonUMax"] * config.uniquePackMultiplier)
+      );
+    }
+    if (row["MonUMin(N)"]) {
+      row["MonUMin(N)"] = Math.max(
+        1,
+        Math.floor(row["MonUMin(N)"] * config.uniquePackMultiplier)
+      );
+    }
+    if (row["MonUMax(N)"]) {
+      row["MonUMax(N)"] = Math.max(
+        row["MonUMin(N)"] || 1,
+        Math.floor(row["MonUMax(N)"] * config.uniquePackMultiplier)
+      );
+    }
+    if (row["MonUMin(H)"]) {
+      row["MonUMin(H)"] = Math.max(
+        1,
+        Math.floor(row["MonUMin(H)"] * config.uniquePackMultiplier)
+      );
+    }
+    if (row["MonUMax(H)"]) {
+      row["MonUMax(H)"] = Math.max(
+        row["MonUMin(H)"] || 1,
+        Math.floor(row["MonUMax(H)"] * config.uniquePackMultiplier)
+      );
+    }
   });
 }
 

@@ -19,6 +19,9 @@ const skilldesc = D2RMM.readTsv(skilldescPath);
 const monaiPath = "global\\excel\\monai.txt";
 const monai = D2RMM.readTsv(monaiPath);
 
+const monpropPath = "global\\excel\\monprop.txt";
+const monprop = D2RMM.readTsv(monpropPath);
+
 // Modify raise skeleton family to summon without a corpse
 if (config.deathKnight) {
   skills.rows.forEach((row) => {
@@ -37,37 +40,37 @@ if (config.deathKnight) {
 
   monstats.rows.forEach((row) => {
     if (row["Id"] === "necroskeleton") {
-      row["AI"] = "Duriel";
-      row["Skill1"] = "Charge";
-      row["Sk1mode"] = "A1";
+      row["AI"] = "PinHead";
+      row["Skill1"] = "Smite";
+      row["Sk1mode"] = "A2";
       row["Sk1lvl"] = "1";
-      row["Skill2"] = "Jab";
-      row["Sk2mode"] = "A1";
-      row["Sk2lvl"] = "1";
-      row["Skill3"] = "Smite";
-      row["Sk3mode"] = "A1";
-      row["Sk3lvl"] = "1";
+      row["Skill2"] = "";
+      row["Sk2mode"] = "";
+      row["Sk2lvl"] = "";
+      row["Skill3"] = "";
+      row["Sk3mode"] = "";
+      row["Sk3lvl"] = "";
       row["Skill4"] = "";
       row["Sk4mode"] = "";
       row["Sk4lvl"] = "";
       row["Skill5"] = "";
       row["Sk5mode"] = "";
       row["Sk5lvl"] = "";
-      row["aip1"] = "5"; //
-      row["aip1(N)"] = "5";
-      row["aip1(H)"] = "6";
-      row["aip2"] = "33"; //
-      row["aip2(N)"] = "33";
-      row["aip2(H)"] = "33";
-      row["aip3"] = "50";
-      row["aip3(N)"] = "50";
-      row["aip3(H)"] = "50";
-      row["aip4"] = "";
-      row["aip4(N)"] = "";
-      row["aip4(H)"] = "";
-      row["aip5"] = ""; //
-      row["aip5(N)"] = "";
-      row["aip5(H)"] = "";
+      row["aip1"] = "90"; //
+      row["aip1(N)"] = "95";
+      row["aip1(H)"] = "97";
+      row["aip2"] = "7"; //
+      row["aip2(N)"] = "7";
+      row["aip2(H)"] = "7";
+      row["aip3"] = "95";
+      row["aip3(N)"] = "95";
+      row["aip3(H)"] = "95";
+      row["aip4"] = "5";
+      row["aip4(N)"] = "5";
+      row["aip4(H)"] = "5";
+      row["aip5"] = "65"; //
+      row["aip5(N)"] = "65";
+      row["aip5(H)"] = "70";
       row["aip6"] = ""; //
       row["aip6(N)"] = "";
       row["aip6(H)"] = "";
@@ -77,6 +80,20 @@ if (config.deathKnight) {
       row["aip8"] = ""; //
       row["aip8(N)"] = "";
       row["aip8(H)"] = "";
+      row["Param1"] = 100; // % chance to spawn with a shield (default 5)
+      row["Param2"] = 100; // HP % per level (default 50)
+      row["Param3"] = 700; // Damage % per level (default 7)
+      row["Param4"] = 75; // Attack Rating per level (default 15)
+      row["Param5"] = 75; // Armor per level (default 15)
+    }
+  });
+
+  skills.rows.forEach((row) => {
+    if (row.skill === "Skeleton Mastery") {
+      row.Param1 = 50; // HP per level (default 8)
+      row.Param2 = 500; // Damage per level (default 2)
+      row.Param3 *= 5; // Revive Synergy HP % per level (default 5)
+      row.Param4 *= 2; // Revive Synergy Damage % per level (default 10)
     }
   });
 
@@ -84,16 +101,18 @@ if (config.deathKnight) {
     "skill('Skeleton Mastery'.lvl) + ((lvl <= 10) ? lvl : (10 + ((lvl - 10) / 2)))";
   skills.rows.forEach((row) => {
     if (row.skill === "Raise Skeleton") {
-      row.sumskill1 = "Charge";
+      row.sumskill1 = "Smite";
       row.sumskill1calc = skeletonSkillAuraCalc;
-      row.sumskill2 = "Jab";
-      row.sumsk2calc = skeletonSkillAuraCalc;
-      row.sumskill3 = "Smite";
-      row.sumsk3calc = skeletonSkillAuraCalc;
+      row.sumskill2 = "";
+      row.sumsk2calc = "";
+      row.sumskill3 = "";
+      row.sumsk3calc = "";
       row.sumskill4 = "";
       row.sumsk4calc = "";
       row.sumskill5 = "";
       row.sumsk5calc = "";
+      row.sumskill5 = "Fanaticism";
+      row.sumsk5calc = skeletonSkillAuraCalc;
     }
   });
 }
@@ -122,18 +141,18 @@ if (config.lich) {
       row["Skill1"] = "Bone Spear";
       row["Sk1mode"] = "A1";
       row["Sk1lvl"] = "1";
-      row["Skill2"] = "Bone Spirit";
-      row["Sk2mode"] = "A1";
-      row["Sk2lvl"] = "1";
-      row["Skill3"] = "Poison Nova";
+      row["Skill2"] = "";
+      row["Sk2mode"] = "";
+      row["Sk2lvl"] = "";
+      row["Skill3"] = "Bone Spirit";
       row["Sk3mode"] = "A1";
       row["Sk3lvl"] = "1";
       row["Skill4"] = "Amplify Damage";
       row["Sk4mode"] = "A1";
       row["Sk4lvl"] = "1";
-      row["Skill5"] = "Bone Armor";
-      row["Sk5mode"] = "A1";
-      row["Sk5lvl"] = "1";
+      row["Skill5"] = "";
+      row["Sk5mode"] = "";
+      row["Sk5lvl"] = "";
 
       // AI parameters (OblivionKnight based, tuned for lich)
       row["aip1"] = "7";
@@ -170,17 +189,15 @@ if (config.lich) {
         "skill('Skeleton Mastery'.lvl) + ((lvl <= 10) ? lvl : (10 + ((lvl - 10) / 2)))";
 
       // Active combat skills (match monstats)
-      row.sumskill1 = "Bone Spear";
+      row.sumskill1 = "Bone Prison";
       row.sumsk1calc = lichCalc;
       row.sumskill2 = "Bone Spirit";
       row.sumsk2calc = lichCalc;
-      row.sumskill3 = "Poison Nova";
+      row.sumskill3 = "Tooth";
       row.sumsk3calc = lichCalc;
-      row.sumskill4 = "Amplify Damage";
+      row.sumskill4 = "Bone Wall";
       row.sumsk4calc = lichCalc;
-
-      // Passive/synergy skills
-      row.sumskill5 = "Bone Armor";
+      row.sumskill5 = "Conviction";
       row.sumsk5calc = lichCalc;
       // If you want more synergy, extend with Teeth, Bone Wall, Bone Prison by shifting slots
     }
@@ -248,53 +265,53 @@ if (config.ancientGolem) {
 
   skills.rows.forEach((row) => {
     if (row.skill === "Clay Golem") {
-      row.sumskill1 = "Smite";
-      row.sumsk1calc = golemAuraCalc;
-      row.sumskill2 = "Prayer";
-      row.sumsk2calc = golemAuraCalc;
-      row.sumskill3 = "Defiance";
-      row.sumsk3calc = golemAuraCalc;
-      row.sumskill4 = "Vigor";
-      row.sumsk4calc = golemAuraCalc;
-      row.sumskill5 = "Meditation";
+      row.sumskill5 = "Cleansing";
       row.sumsk5calc = golemAuraCalc;
     }
     if (row.skill === "BloodGolem") {
-      row.sumskill1 = "Might";
-      row.sumsk1calc = golemAuraCalc;
-      row.sumskill2 = "Blessed Aim";
-      row.sumsk2calc = golemAuraCalc;
-      row.sumskill3 = "Concentration";
-      row.sumsk3calc = golemAuraCalc;
-      row.sumskill4 = "Fanaticism";
-      row.sumsk4calc = golemAuraCalc;
-      row.sumskill5 = "Conviction";
+      row.sumskill5 = "Concentration";
       row.sumsk5calc = golemAuraCalc;
     }
     if (row.skill === "IronGolem") {
-      row.sumskill1 = "Holy Freeze";
-      row.sumsk1calc = golemAuraCalc;
-      row.sumskill2 = "Thorns";
-      row.sumsk2calc = golemAuraCalc;
-      row.sumskill3 = "Sanctuary";
-      row.sumsk3calc = golemAuraCalc;
-      row.sumskill4 = "Holy Shock";
-      row.sumsk4calc = golemAuraCalc;
+      row.sumskill5 = "Vigor";
+      row.sumsk5calc = golemAuraCalc;
     }
     if (row.skill === "FireGolem") {
-      row.sumskill1 = "Cleansing";
-      row.sumsk1calc = golemAuraCalc;
-      row.sumskill2 = "Resist Lightning";
-      row.sumsk2calc = golemAuraCalc;
-      row.sumskill3 = "Resist Cold";
-      row.sumsk3calc = golemAuraCalc;
-      row.sumskill4 = "Resist Fire";
-      row.sumsk4calc = golemAuraCalc;
       row.sumskill5 = "Salvation";
       row.sumsk5calc = golemAuraCalc;
     }
   });
+
+  skills.rows.forEach((row) => {
+    if (row.skill === "Golem Mastery") {
+      row.Param1 *= 2; // HP % baseline (default 20)
+      row.Param2 *= 2; // HP % per level (default 20)
+      row.Param3 = 0; // Velocity % Min (default 0)
+      row.Param4 = 40; // Velocity % Max (default 40)
+      row.Param5 *= 2; // Attack Rating baseline (default 25)
+      row.Param6 *= 2; // Attack Rating per level (default 25)
+    }
+  });
 }
+
+// Revive skill adjustments
+
+skills.rows.forEach((row) => {
+  if (row.skill === "Revive") {
+    row.Param3 = 0;
+    row["*calc2 desc"] = "";
+    row["summon"] = "doomknight3";
+  }
+});
+
+//
+targets = ["andariel", "duriel", "mephisto", "diablo", "baalcrab"];
+monstats2.rows.forEach((row) => {
+  if (targets.includes(row["Id"])) {
+    row.corpseSel = 1;
+    row.revive = 1;
+  }
+});
 
 // write
 D2RMM.writeTsv(pettypePath, pettype);
@@ -304,3 +321,4 @@ D2RMM.writeTsv(monstatsPath, monstats);
 D2RMM.writeTsv(monstats2Path, monstats2);
 D2RMM.writeTsv(skilldescPath, skilldesc);
 D2RMM.writeTsv(monaiPath, monai);
+D2RMM.writeTsv(monpropPath, monprop);
