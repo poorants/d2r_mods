@@ -113,17 +113,19 @@ if (config.lich) {
       row.InTown = 1;
     }
   });
-
+  /* ---------- monstats: necromage (Lich AI) ---------- */
   monstats.rows.forEach((row) => {
     if (row["Id"] === "necromage") {
       row["AI"] = "OblivionKnight";
-      row["Skill1"] = "Bone Spirit";
+
+      // Combat skills (AI trigger)
+      row["Skill1"] = "Bone Spear";
       row["Sk1mode"] = "A1";
       row["Sk1lvl"] = "1";
-      row["Skill2"] = "Teeth";
+      row["Skill2"] = "Bone Spirit";
       row["Sk2mode"] = "A1";
       row["Sk2lvl"] = "1";
-      row["Skill3"] = "Bone Spear";
+      row["Skill3"] = "Poison Nova";
       row["Sk3mode"] = "A1";
       row["Sk3lvl"] = "1";
       row["Skill4"] = "Amplify Damage";
@@ -132,47 +134,55 @@ if (config.lich) {
       row["Skill5"] = "Bone Armor";
       row["Sk5mode"] = "A1";
       row["Sk5lvl"] = "1";
-      row["aip1"] = "6"; //
+
+      // AI parameters (OblivionKnight based, tuned for lich)
+      row["aip1"] = "7";
       row["aip1(N)"] = "7";
-      row["aip1(H)"] = "8";
-      row["aip2"] = "25"; //
-      row["aip2(N)"] = "26";
-      row["aip2(H)"] = "27";
-      row["aip3"] = "500";
-      row["aip3(N)"] = "350";
-      row["aip3(H)"] = "200";
-      row["aip4"] = "50";
-      row["aip4(N)"] = "50";
-      row["aip4(H)"] = "50";
-      row["aip5"] = "80"; //
-      row["aip5(N)"] = "85";
-      row["aip5(H)"] = "90";
-      row["aip6"] = "30"; //
-      row["aip6(N)"] = "30";
-      row["aip6(H)"] = "30";
-      row["aip7"] = "30"; //
-      row["aip7(N)"] = "30";
-      row["aip7(H)"] = "30";
-      row["aip8"] = "9"; //
+      row["aip1(H)"] = "8"; // run away range
+      row["aip2"] = "24";
+      row["aip2(N)"] = "25";
+      row["aip2(H)"] = "26"; // ranged skill range
+      row["aip3"] = "350";
+      row["aip3(N)"] = "250";
+      row["aip3(H)"] = "200"; // curse interval
+      row["aip4"] = "30";
+      row["aip4(N)"] = "30";
+      row["aip4(H)"] = "30"; // curse chance
+      row["aip5"] = "75";
+      row["aip5(N)"] = "75";
+      row["aip5(H)"] = "75"; // Bone Spear weight
+      row["aip6"] = "15";
+      row["aip6(N)"] = "15";
+      row["aip6(H)"] = "15"; // Bone Spirit weight
+      row["aip7"] = "10";
+      row["aip7(N)"] = "10";
+      row["aip7(H)"] = "10"; // Poison Nova weight
+      row["aip8"] = "10";
       row["aip8(N)"] = "10";
-      row["aip8(H)"] = "11";
+      row["aip8(H)"] = "10"; // approach range
     }
   });
 
-  const skeletalMageSkillAuraCalc =
-    "skill('Skeleton Mastery'.lvl) + ((lvl <= 10) ? lvl : (10 + ((lvl - 10) / 2)))";
+  /* ---------- skills: Raise Skeletal Mage sumskills ---------- */
   skills.rows.forEach((row) => {
     if (row.skill === "Raise Skeletal Mage") {
+      const lichCalc =
+        "skill('Skeleton Mastery'.lvl) + ((lvl <= 10) ? lvl : (10 + ((lvl - 10) / 2)))";
+
+      // Active combat skills (match monstats)
       row.sumskill1 = "Bone Spear";
-      row.sumskill1calc = skeletalMageSkillAuraCalc;
-      row.sumskill2 = "";
-      row.sumsk2calc = "";
-      row.sumskill3 = "Bone Spirit";
-      row.sumsk3calc = skeletalMageSkillAuraCalc;
+      row.sumsk1calc = lichCalc;
+      row.sumskill2 = "Bone Spirit";
+      row.sumsk2calc = lichCalc;
+      row.sumskill3 = "Poison Nova";
+      row.sumsk3calc = lichCalc;
       row.sumskill4 = "Amplify Damage";
-      row.sumsk4calc = skeletalMageSkillAuraCalc;
-      row.sumskill5 = "";
-      row.sumsk5calc = "";
+      row.sumsk4calc = lichCalc;
+
+      // Passive/synergy skills
+      row.sumskill5 = "Bone Armor";
+      row.sumsk5calc = lichCalc;
+      // If you want more synergy, extend with Teeth, Bone Wall, Bone Prison by shifting slots
     }
   });
 }
